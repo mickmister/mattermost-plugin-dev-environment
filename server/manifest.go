@@ -12,9 +12,13 @@ var manifest *model.Manifest
 
 const manifestStr = `
 {
-  "id": "com.mattermost.plugin-starter-template",
-  "name": "Plugin Starter Template",
-  "description": "This plugin serves as a starting point for writing a Mattermost plugin.",
+  "id": "mattermost-dev-environment",
+  "name": "Mattermost Dev Environment",
+  "description": "This plugin contains some helpful functionality pertaining to the Mattermost dev environment.",
+  "homepage_url": "https://github.com/mickmister/mattermost-plugin-dev-environment",
+  "support_url": "https://github.com/mickmister/mattermost-plugin-dev-environment/issues",
+  "release_notes_url": "https://github.com/mickmister/mattermost-plugin-dev-environment/releases/tag/v0.1.0",
+  "icon_path": "assets/starter-template-icon.svg",
   "version": "0.1.0",
   "min_server_version": "5.12.0",
   "server": {
@@ -29,9 +33,26 @@ const manifestStr = `
     "bundle_path": "webapp/dist/main.js"
   },
   "settings_schema": {
-    "header": "",
+    "header": "Plugin needs to be restarted for these settings to take effect.",
     "footer": "",
-    "settings": []
+    "settings": [
+      {
+        "key": "numlines_error_truncate",
+        "display_name": "Number of lines for errors",
+        "type": "number",
+        "help_text": "Number of lines to truncate javascript errors. Set blank to avoid truncating.",
+        "placeholder": "",
+        "default": 3
+      },
+      {
+        "key": "numlines_warning_truncate",
+        "display_name": "Number of lines for warnings",
+        "type": "number",
+        "help_text": "Number of lines to truncate javascript warnings. Set blank to avoid truncating.",
+        "placeholder": "",
+        "default": 3
+      }
+    ]
   }
 }
 `

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"sync"
@@ -22,7 +23,19 @@ type Plugin struct {
 
 // ServeHTTP demonstrates a plugin that handles HTTP requests by greeting the world.
 func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Request) {
+	switch r.URL.Path {
+	case "/config":
+		p.serveConfig(w, r)
+		return
+	}
+
 	fmt.Fprint(w, "Hello, world!")
+}
+
+func (p *Plugin) serveConfig(w http.ResponseWriter, r *http.Request) {
+	conf := p.getConfiguration()
+	b, _ := json.Marshal(conf)
+	w.Write(b)
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/
